@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <![endif]-->
+
+    <title>Snake Game</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="dist/css/main.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Snake Game</h1>
+
+      <!-- ——————————————————————————— SCORES ——————————————————————————————— -->
+      <div id="scores" class="row">
+        <div class="col-xs-4 pull-left">
+          <h3>Scores: <span id="score" class="label label-primary">100</span></h3>
+        </div>
+        <div class="col-xs-4 text-center">
+          <h3>Level: <span id="level" class="label label-success">7</span></h3>
+        </div>
+        <div class="col-xs-4">
+          <h3 id="lives" class="pull-right">
+            <span class="glyphicon glyphicon-heart text-danger"></span>
+            <span class="glyphicon glyphicon-heart text-danger"></span>
+            <span class="glyphicon glyphicon-heart text-danger"></span>
+          </h3>
+        </div>
+      </div>
+      <!-- ——————————————————————————— SCORES_END ——————————————————————————— -->
+
+      <!-- ——————————————————————————— MAIN_CANVAS —————————————————————————— -->
+      <div class="row">
+        <div class="col-sm-12">
+          <canvas id="gameWindow" class="img-responsive">Your browser does not support canvas</canvas>
+        </div>
+      </div>
+      <!-- ——————————————————————————— MAIN_CANVAS_END —————————————————————— -->
+
+      <!-- ——————————————————————————— FOOTER_BUTTONS ——————————————————————— -->
+      <div class="row">
+        <div class="col-sm-12 hidden-xs">
+          <button id="helpBtn" type="button" class="btn btn-info" data-toggle="modal" data-target=".help-modal">
+            <span class="glyphicon glyphicon-question-sign"></span> Help
+          </button>
+          <button id="bestBtn" type="button" class="btn btn-info pull-right">
+            <span class="glyphicon glyphicon-flash"></span> Best scores
+          </button>
+        </div>
+      </div>
+      <!-- ——————————————————————————— FOOTER_BUTTONS_END ——————————————————— -->
+
+      <!-- ——————————————————————————— HELP_MODAL ——————————————————————————— -->
+      <div id="helpModal" class="modal fade help-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+              <h4 class="modal-title" id="gridSystemModalLabel">Snake</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="modal-title">About</h4>
+                  <br />
+                  <p>Read about the game on <a href="https://en.wikipedia.org/wiki/Snake_(video_game)" target="_blank">wikipedia</a>.</p>
+                  <hr />
+                  <h4 class="modal-title">Controls</h4>
+                  <br />
+                  <p> To start and pause the game press <kbd>Spacebar</kbd></p>
+                  <p> Use keyboard arrows or <kbd>h</kbd>, <kbd>j</kbd>, <kbd>k</kbd>, <kbd>l</kbd>
+                  or <kbd>w</kbd>, <kbd>a</kbd>, <kbd>s</kbd>, <kbd>d</kbd> to direct the snake</p>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ——————————————————————————— HELP_MODAL_END ——————————————————————— -->
+
+      <!-- ——————————————————————————— SCORE_RECORD_MODAL ——————————————————— -->
+      <div id="highScore" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+              <h4 class="modal-title text-center"><span id="newScore" class="label label-primary"></span> Highest score!!!</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <input id="name" type="text" placeholder="Enter your name" maxlenght="30">
+                  <button id="saveHigh" type="submit" class="btn btn-primary" data-dismiss="modal">Save</button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ——————————————————————————— SCORE_RECORD_MODAL_END ——————————————— -->
+
+      <!-- ——————————————————————————— RECORDS_MODAL ———————————————————————— -->
+      <div id="scoreModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+              <h4 class="modal-title text-center">Highest scores</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div id="scoreList" class="col-md-12 text-center">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ——————————————————————————— RECORDS_MODAL_END ———————————————————— -->
+    </div>
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="dist/js/helper.js"></script>
+    <script src="dist/js/main.js"></script>
+  </body>
+</html>

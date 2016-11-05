@@ -1,0 +1,5 @@
+*.swp
+!node_modules
+node_modules/*
+!/node_modules/bootstrap/dist/
+!/node_modules/jquery/dist/

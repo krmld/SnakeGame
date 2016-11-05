@@ -1,0 +1,14 @@
+canvas {
+  display: block;
+  margin: 0px auto 8px;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+#scores .glyphicon {
+  font-size: 1.2em;
+}
+
+.glyphicon-heart,
+.glyphicon-heart-empty {
+}
