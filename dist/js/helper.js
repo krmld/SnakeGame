@@ -12,14 +12,29 @@ $(function () {
   });
   //////////////////////////////////////////////////////////////////
 
-  $('#highScore').on('shown', function (e) {
+  $('#highScore').on('shown.bs.modal', function (e) {
     $('#name').focus();
   });
 
+  $("#name").keyup(function (e) {
+    if(e.keyCode == 13){
+        $("#saveHigh").click();
+    }
+  });
+
   $('#saveHigh').on('click', function (e) {
-    var user = $('#name').val();
+    var user = $('#name').val().trim();
     var score = $('#newScore').text();
-    localStorage.setItem(user, score);
+    if (user.match("^[a-zA-Z0-9]*$")) {
+      localStorage.setItem(user, score);
+      $('#highScore').modal('hide');
+    } else {
+      var name = $('#name');
+      name.val('');
+      name.prop('required', true);
+      name.attr('placeholder', 'Enter valid name');
+      name.focus();
+    }
   });
 
   $('#bestBtn').on('click', function (e) {

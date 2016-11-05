@@ -89,9 +89,8 @@ game = {
     var max = 0;
     var val = 0;
     for (var i = 0; i < localStorage.length; i++) {
-          val = parseInt(localStorage.getItem(localStorage.key(i)));
-          if (max < val) max = val;
-          console.log(localStorage.key(i) + ' ' + localStorage.getItem(localStorage.key(i)));
+      val = parseInt(localStorage.getItem(localStorage.key(i)));
+      if (max < val) max = val;
     }
 
     if (game.score > max) {
@@ -226,7 +225,7 @@ var keys = {
   down: [40, 74, 83],
   left: [37, 65, 72],
   right: [39, 68, 76],
-  start_stop: [13, 32]
+  start_stop: [32]
 };
 
 function getKey(value){
