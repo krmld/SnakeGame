@@ -25,7 +25,7 @@ $(function () {
   $('#saveHigh').on('click', function (e) {
     var user = $('#name').val().trim();
     var score = $('#newScore').text();
-    if (user.match("^[a-zA-Z0-9]*$")) {
+    if (user.match("^[a-zA-Z0-9]*$") && user != '') {
       localStorage.setItem(user, score);
       $('#highScore').modal('hide');
     } else {

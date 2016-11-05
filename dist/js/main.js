@@ -156,10 +156,28 @@ snake = {
     game.drawCell(section[0], section[1], snake.size, snake.color);
   },
 
+  resetPosition: function() {
+    if (snake.x > canvas.width / 2) {
+      snake.x -= snake.velocity/game.fps;
+    } else if (snake.x < (canvas.width / 2 - snake.velocity/game.fps)) {
+      snake.x += snake.velocity/game.fps;
+    } else if (snake.y > canvas.height / 2) {
+      snake.y -= snake.velocity/game.fps;
+    } else if (snake.y < (canvas.height / 2 - snake.velocity/game.fps)) {
+      snake.y += snake.velocity/game.fps;
+    } else {
+      snake.color = '#5CB85C';
+      return 0;
+    }
+
+    snake.sections.push([snake.x, snake.y]);
+    snake.sections.shift();
+  },
+
   checkCollision: function() {
     if (snake.isCollision(snake.x, snake.y) === true) {
+      snake.color = '#555';
       if (--snake.lives) {
-        setTimeout(function(){snake.init(snake.lives, snake.velocity)}, 1000);
         game.resuming = true;
       } else {
         game.stop();
@@ -259,14 +277,16 @@ var requestAnimationFrame = window.requestAnimationFrame ||
       window.msRequestAnimationFrame ||
       window.mozRequestAnimationFrame;
 
-function loop(now) {
+function loop(now) {  // "now" argument is passed by requestAnimationFrame()
   game.drawMessage();
   game.updateScore();
+
   if (!game.over && !game.paused) {
     game.resetCanvas();
 
     if(game.resuming) {
       game.drawCount(now);
+      snake.resetPosition();
     } else {
       snake.move();
     }
