@@ -1,6 +1,8 @@
-var canvas = document.getElementById("gameWindow");
-var context = canvas.getContext("2d");
-var game, snake, food;
+import {updateLives} from "./helper.js";
+
+let canvas = document.getElementById("gameWindow");
+const context = canvas.getContext("2d");
+let snake, food;
 
 // Setting responsive dimensions for the canvas
 window.onload = function () {
@@ -9,7 +11,7 @@ window.onload = function () {
 }
 
 // Main wrapper object of the game
-game = {
+const game = {
 
   score: 0,               // Score of the play
   level: 0,               // Level of the play
@@ -86,9 +88,9 @@ game = {
   },
 
   checkScore: function() {
-    var max = 0;
-    var val = 0;
-    for (var i = 0; i < localStorage.length; i++) {
+    let max = 0;
+    let val = 0;
+    for (let i = 0; i < localStorage.length; i++) {
       val = parseInt(localStorage.getItem(localStorage.key(i)));
       if (max < val) max = val;
     }
@@ -120,7 +122,7 @@ snake = {
     snake.x = canvas.width / 2;
     snake.y = canvas.height / 2;
     snake.sections = [];
-    for (var i = 15; i >= 0; i--) {
+    for (let i = 15; i >= 0; i--) {
       snake.sections.push([snake.x + Math.floor(snake.velocity/game.fps) * i, snake.y]);
     }
   },
@@ -147,7 +149,7 @@ snake = {
   },
 
   draw: function() {
-    for (var i = 0; i < snake.sections.length; i++) {
+    for (let i = 0; i < snake.sections.length; i++) {
       snake.drawSection(snake.sections[i]);
     }
   },
@@ -230,7 +232,7 @@ food = {
 
 };
 
-var inverseDirection = {
+const inverseDirection = {
   'up': 'down',
   'left': 'right',
   'right': 'left',
@@ -238,7 +240,7 @@ var inverseDirection = {
 };
 
 // Control keys: (wasd), (hjkl), arrow, spacebar and enter keys.
-var keys = {
+const keys = {
   up: [38, 75, 87],
   down: [40, 74, 83],
   left: [37, 65, 72],
@@ -247,7 +249,7 @@ var keys = {
 };
 
 function getKey(value){
-  for (var key in keys){
+  for (let key in keys){
     if (keys[key] instanceof Array && keys[key].indexOf(value) >= 0){
       return key;
     }
@@ -256,7 +258,7 @@ function getKey(value){
 }
 
 addEventListener("keydown", function (e) {
-  var lastKey = getKey(e.keyCode);
+  const lastKey = getKey(e.keyCode);
   if (['up', 'down', 'left', 'right'].indexOf(lastKey) >= 0
     && lastKey != inverseDirection[snake.direction]) {
       snake.direction = lastKey;
@@ -272,7 +274,7 @@ addEventListener("keydown", function (e) {
 
 // Optimization for animation, support only for latest browsers.
 // TODO: to support more browsers add better initialization of requestAnimationFrame
-var requestAnimationFrame = window.requestAnimationFrame ||
+const requestAnimationFrame = window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
       window.msRequestAnimationFrame ||
       window.mozRequestAnimationFrame;

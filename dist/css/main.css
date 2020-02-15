@@ -1,7 +1,11 @@
+body {
+  background-color: #cacaca;
+}
+
 canvas {
   display: block;
   margin: 0px auto 8px;
-  background-color: #ccc;
+  background-color: grey;
   border-radius: 5px;
 }
 

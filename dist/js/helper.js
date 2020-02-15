@@ -59,9 +59,9 @@ $(function () {
     $('#scoreModal').modal('show');
 
   })
-})
+});
 
-function updateLives (lives) {
+export function updateLives (lives) {
   var num = $('.glyphicon-heart').length;
   var last;
 
