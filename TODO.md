@@ -1,5 +1,8 @@
 # TODO LIST
 
+[ ] convert to ES2016
+[ ] webpack
+[ ] write tests
 * Frame per second is set statically, use actual FPS
 * Add shadows to canvas borders
 * Remove cursor pointer from canvas after 3 seconds
@@ -10,4 +13,5 @@
 * Style better list of saved records
 * Add icons, favicons
 * Add sprite images
-* Restructure main.js, remove global variables
+[ ] ...update bootsrap
+[ ] ...review html
